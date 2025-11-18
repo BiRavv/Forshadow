@@ -62,8 +62,10 @@ const App = () => {
 
   useEffect(() => {
     const apiKey = "e6c71dafd11e4866b1d70712251311";
-    
-    const url = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=7`;
+    const url = 
+      (location == null || location == "")? 
+      `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=7` : 
+      `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=auto:ip&days=7`;
 
     const fetchWeather = async () => {
       try {
@@ -89,7 +91,7 @@ const App = () => {
   return (
     <div>
       <div className="today">
-        <Search initialLocation={weather?.location} onSelect={(x)=>setLocation("id:"+x.id)} />
+        <Search key="search-bar" initialLocation={weather?.location} onSelect={(x)=>setLocation("id:"+x.id)} />
 
         <p>{weather?.current.temp_c} °C</p>
         <p>{weather?.location.name}</p>
@@ -97,7 +99,7 @@ const App = () => {
       
 
       <div className="forecasts">
-        {weather?.forecast.forecastday.map((day)=><ForecastCard forecastday={day} />)}
+        {weather?.forecast.forecastday.map((day)=><ForecastCard key ={"forecast-day-"+day.date_epoch} forecastday={day} />)}
       </div>
       
     </div>

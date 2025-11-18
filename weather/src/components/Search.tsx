@@ -44,6 +44,8 @@ const Search: React.FC<SearchProps> = ({ initialLocation, onSelect }) => {
 
   // Fetch when debounced value changes
   useEffect(() => {
+    if (debouncedLookfor == null || debouncedLookfor.length === 0) return;
+
     const apiKey = "e6c71dafd11e4866b1d70712251311";
     const url = `https://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${debouncedLookfor}`;
 
@@ -72,12 +74,14 @@ const Search: React.FC<SearchProps> = ({ initialLocation, onSelect }) => {
   const handleSelect = (opt: LocationOption) => {
     setLookfor(""+opt.id);
     setOptions(null);
+    document.getElementById("search-bar-input")?.innerText = ""
     if (onSelect) onSelect(opt);
   };
 
   return (
     <div style={{ position: "relative", width: "250px" }}>
       <input
+        id = "search-bar-input"
         type="text"
         placeholder={initialLocation?.name}
         onChange={(e) => setLookfor(e.target.value)}
