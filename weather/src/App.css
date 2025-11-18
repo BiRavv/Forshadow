@@ -1,0 +1,18 @@
+.forecast-card{
+  width: 10%;
+  height: fit-content;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+}
+
+.forecasts{
+  display: flex;
+  flex-direction: row;
+  line-height: 0px;
+  hr{
+    width: 90%;
+  }
+}
