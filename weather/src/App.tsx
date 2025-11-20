@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import Search from "./components/Search";
 import ForecastCard from "./components/ForecastCard";
+import Compass from "./components/Compass";
+import AUTH from "./components/Secret";
 
-interface Weather {
+export interface Weather {
   location: {
     name: string;
     region: string;
@@ -26,6 +28,8 @@ interface Weather {
     };
     wind_mph: number;
     wind_kph: number;
+    wind_degree: number;
+    wind_dir: string;
     humidity: number;
     cloud: number;
     feelslike_c: number;
@@ -35,8 +39,13 @@ interface Weather {
     forecastday: {
       date: string;
       date_epoch: number;
+      astro: {
+        sunrise: string;
+        sunset: string;
+        moon_phase: string;
+      };
       hour: {
-        temp_c : number;
+        temp_c: number;
         chance_of_rain: number;
         time_epoch: number;
         time: Date;
@@ -48,6 +57,7 @@ interface Weather {
         mintemp_f: number;
         avgtemp_c: number;
         avgtemp_f: number;
+        daily_chance_of_rain: number;
         condition: {
           text: string;
           icon: string;
@@ -81,7 +91,7 @@ const App = () => {
   }, [weather]);
 
   useEffect(() => {
-    const apiKey = "e6c71dafd11e4866b1d70712251311";
+    const apiKey = AUTH;
     const url =
       location != null && location != ""
         ? `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=3`
@@ -108,6 +118,22 @@ const App = () => {
     fetchWeather();
   }, [location]);
 
+  function getWindDescription(kph: number): string {
+    if (kph < 5) {
+      return "Calm";
+    } else if (kph < 20) {
+      return "Light breeze";
+    } else if (kph < 40) {
+      return "Moderate wind";
+    } else if (kph < 60) {
+      return "Strong wind";
+    } else if (kph < 85) {
+      return "Gale";
+    } else {
+      return "Storm";
+    }
+  }
+
   return (
     <div>
       <Search
@@ -125,6 +151,9 @@ const App = () => {
           <div>
             <h1>{weather?.current.temp_c}°c</h1>
             <h2>Feels like {weather?.current.feelslike_c}°c</h2>
+            <h1>
+              🌧 {weather?.forecast.forecastday[0]?.day.daily_chance_of_rain}%
+            </h1>
           </div>
         </div>
 
@@ -137,37 +166,59 @@ const App = () => {
           ))}
         </div>
       </div>
+
       <div className="devided-holder">
         <div className="devided panel">
           <div className="data-cols">
-            {weather?.forecast.forecastday[0]
-            ?.hour.map(h=>
-             <div 
+            {weather?.forecast.forecastday[0]?.hour.map((h) => (
+              <div
                 style={{
                   height: `${(h.temp_c + 30) * 5}px`,
-                  backgroundColor: new Date(h.time.toString()).getHours() === new Date().getHours() ? "var(--dependent-color)" : "white"
+                  backgroundColor:
+                    new Date(h.time.toString()).getHours() ===
+                    new Date().getHours()
+                      ? "var(--dependent-color)"
+                      : "white",
                 }}
-                key={h.time_epoch} 
+                key={h.time_epoch}
                 className="data-col"
               >
                 <div>{h.temp_c}</div>
-              </div>)}
+              </div>
+            ))}
           </div>
           <div className="data-nums">
-            {weather?.forecast.forecastday[0]?.hour.map(h => {
+            {weather?.forecast.forecastday[0]?.hour.map((h) => {
               const hour = new Date(h.time.toString()).getHours();
-              
+
               const formattedHour = hour < 10 ? `0${hour}` : `${hour}`;
 
               return (
-                <p 
-                  className="data-num" 
-                  key={"" + h.time_epoch + h.time}
-                >
+                <p className="data-num" key={"" + h.time_epoch + h.time}>
                   {formattedHour}
                 </p>
               );
             })}
+          </div>
+        </div>
+      </div>
+
+      <div className="sub-data">
+        <div className="panel astro">TODO</div>
+        <div className="panel wind">
+          <div className="compass-holder">
+            <div className="middle"></div>
+            <Compass weather={weather}></Compass>
+          </div>
+          <div className="wind-details">
+            <h2>
+              Wind is blowing with <br /> {weather?.current.wind_kph} KM/H
+            </h2>
+            <h1>
+              {weather?.current.wind_kph != null
+                ? getWindDescription(weather.current.wind_kph)
+                : "Loading wind…"}
+            </h1>
           </div>
         </div>
       </div>

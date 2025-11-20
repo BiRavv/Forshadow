@@ -1,5 +1,5 @@
-// components/Search.tsx
 import React, { useEffect, useState } from "react";
+import AUTH from "./Secret";
 
 interface LocationOption {
   id: number;
@@ -46,7 +46,7 @@ const Search: React.FC<SearchProps> = ({ initialLocation, onSelect }) => {
   useEffect(() => {
     if (debouncedLookfor == null || debouncedLookfor.length === 0) return;
 
-    const apiKey = "e6c71dafd11e4866b1d70712251311";
+    const apiKey = AUTH;
     const url = `https://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${debouncedLookfor}`;
 
     const fetchWeather = async () => {
@@ -87,15 +87,17 @@ const Search: React.FC<SearchProps> = ({ initialLocation, onSelect }) => {
         onChange={(e) => setLookfor(e.target.value)}
       />
 
-      
-
       {options && options.length > 0 && (
         <ul>
           {loading && <li className="panel">Loading...</li>}
           {error && <li className="panel">Error: {error}</li>}
 
           {options.map((opt) => (
-            <li className="panel" key={opt.id} onClick={() => handleSelect(opt)}>
+            <li
+              className="panel"
+              key={opt.id}
+              onClick={() => handleSelect(opt)}
+            >
               {opt.name}, {opt.country}
             </li>
           ))}

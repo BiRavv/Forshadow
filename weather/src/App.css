@@ -1,182 +1,181 @@
-  :root{
-    --background: url("background-day.png");
-    --dependent-color: #FFF002;
-  }
-  
-  * {
-    font-family: Arial, Helvetica, sans-serif;
-    box-sizing: border-box;
-    color: white;
-  }
+:root {
+  --background: url("background-day.png");
+  --dependent-color: #fff002;
+}
 
-  html, body {
-    overflow: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    background-color: #001c33;
-  }
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+  color: white;
+  user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-select: none;
+}
 
-  html::-webkit-scrollbar,
-  body::-webkit-scrollbar {
-    display: none;
-  }
+html,
+body {
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  background-color: #001c33;
+}
 
-  body {
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  margin: 0;
+  width: 100vw;
+  min-height: 100vh;
+
+  overflow-x: hidden;
+
+  background-image: var(--background);
+  background-size: cover;
+  background-position: center;
+}
+
+.panel {
+  background: rgba(0, 0, 0, 0.452);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+
+  border-radius: 14px;
+  padding: 16px;
+
+  border: 0px;
+
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.301),
+    inset 0 0 30px rgba(46, 46, 46, 0.356), inset 0 0 8px rgba(20, 20, 20, 0.35);
+}
+
+.clesius {
+  font-size: small;
+  vertical-align: middle;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 0px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  min-width: 50px;
+  max-width: 90%;
+  justify-self: center;
+
+  ul {
+    list-style: none;
+    position: absolute;
+    z-index: 100;
     margin: 0;
-    width: 100vw;
-    min-height: 100vh;
-    
-    overflow-x: hidden;
+    margin-top: 100px;
+    padding: 0;
 
-    background-image: var(--background);
-    background-size: cover;
-    background-position: center;
-  }
-
-  .panel {
-    background: rgba(0, 0, 0, 0.452);
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
-
-    border-radius: 14px;
-    padding: 16px;
-
-    border: 0px;
-
-    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.301),
-      inset 0 0 30px rgba(46, 46, 46, 0.356), inset 0 0 8px rgba(20, 20, 20, 0.35);
-  }
-
-  .clesius{
-    font-size: small;
-    vertical-align: middle;
-  }
-
-  .search-bar {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    margin: 0px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    min-width: 50px;
-    max-width: 90%;
-    justify-self: center;
-
-    ul{
-      list-style: none;
-      position: absolute;
-      z-index: 100;
-      margin: 0;
-      margin-top: 100px;
-      padding: 0;
-
-      li{
-        margin-top: 5px;
-        font-size: 25px;
-      }
+    li {
+      margin-top: 5px;
+      font-size: 25px;
+      border: white solid 2px;
     }
   }
-  #search-bar-input {
-    align-content: center;
-    text-align: center;
-    font-size: 50px;
-    font-weight: bolder;
-    color: rgb(221, 221, 221);
-    max-width: 800px;
-    width: 90vw;
-  }
-  #search-bar-input::placeholder {
+}
+#search-bar-input {
+  align-content: center;
+  text-align: center;
+  font-size: 50px;
+  font-weight: bolder;
+  color: rgb(221, 221, 221);
+  max-width: 800px;
+  width: 90vw;
+}
+#search-bar-input::placeholder {
   color: white;
-  }
+}
 
+.general {
+  display: flex;
+  flex-direction: row;
+  width: 75%;
+  align-self: center;
+  justify-self: center;
 
-  .general{
+  .today {
+    justify-self: center;
+    width: 40%;
+    justify-items: center;
+    text-align: center;
 
     display: flex;
     flex-direction: row;
-    width: 75%;
-    align-self: center;
-    justify-self: center;
 
-    .today {
-      justify-self: center;
-      width: 40%;
-      justify-items: center;
-      text-align: center;
-      margin: 10px;
-      margin-right: 0;
+    padding-bottom: 40px;
+    margin-right: 40px;
 
+    div {
+      width: 50%;
       display: flex;
-      flex-direction: row;
-
-      padding-bottom: 40px;
-
-      div{
-        width: 50%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-        *{
-          margin: 0;
-        }
-        img{
-          width: 70%;
-          align-self: center;
-          margin-bottom: -10px;
-        }
-        h1{
-          margin: 20px;
-          font-size: 50px;
-        }
-        h2{
-          margin: 5px;
-        }
-      }
-    }
-
-    .forecasts {
-      width: 60%;
+      flex-direction: column;
       justify-content: center;
-      justify-items: center;
-      display: flex;
-      flex-direction: row;
-      line-height: 0px;
 
-      .forecast-card {
-        width: 30%;
-        height: fit-content;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 10px;
-
-        img{
-          width: 50%;
-          aspect-ratio: 1;
-        }
+      * {
+        margin: 0;
       }
-      hr {
-        width: 90%;
+      img {
+        width: 70%;
+        align-self: center;
+        margin-bottom: -10px;
+      }
+      h1 {
+        margin: 20px;
+        font-size: 50px;
+      }
+      h2 {
+        margin: 5px;
       }
     }
   }
 
+  .forecasts {
+    width: 60%;
+    justify-content: space-between;
+    justify-items: center;
+    display: flex;
+    flex-direction: row;
+    line-height: 0px;
 
-.devided-holder{
+    .forecast-card {
+      width: 30%;
+      height: fit-content;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      img {
+        width: 50%;
+        aspect-ratio: 1;
+      }
+    }
+    hr {
+      width: 90%;
+    }
+  }
+}
+
+.devided-holder {
   width: 75%;
-  padding: 10px;
-  padding-right: 15px;
+  margin-top: 40px;
   height: fit-content;
   align-self: center;
   justify-self: center;
 
-  .devided{
+  .devided {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    
+
     overflow-x: auto;
     overflow-y: hidden;
 
@@ -185,15 +184,15 @@
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
 
-    .data-nums{
+    .data-nums {
       display: flex;
       flex-direction: row;
-      justify-content: flex-start;
+      justify-content: start;
       align-items: center;
       padding-left: 0;
       margin-left: -5px;
 
-      .data-num{
+      .data-num {
         width: 10px;
         min-width: 10px;
         flex-shrink: 0;
@@ -204,15 +203,14 @@
         margin-bottom: 0;
       }
     }
-    .data-cols{
+    .data-cols {
       width: 100%;
       display: flex;
       flex-direction: row;
       align-items: flex-end;
-      justify-content: flex-start;
-   
-      .data-col{
-        
+      justify-content: start;
+
+      .data-col {
         width: 20px;
         flex-shrink: 0;
         background-color: white;
@@ -223,7 +221,7 @@
         margin-bottom: 20px;
         margin-top: 50px;
 
-        div{
+        div {
           transform: translate(-10px, -30px);
           text-align: center;
           width: 40px;
@@ -233,31 +231,145 @@
   }
 }
 
-  @media (max-width:1000px) {
-    .general{
-      flex-direction: column;
-      width: 90%;
+.sub-data {
+  width: 75%;
+  margin-top: 40px;
+  align-self: center;
+  justify-self: center;
 
-      .forecasts{
-        width: 100%;
-        align-self: center;
+  height: fit-content;
+
+  display: flex;
+  flex-direction: row;
+
+  justify-content: space-between;
+
+  margin-bottom: 50px;
+
+  div {
+    width: 48%;
+    height: 300px;
+  }
+  .wind {
+    display: flex;
+    justify-content: space-around;
+
+    > div {
+      height: 95%;
+      align-content: center;
+      justify-items: center;
+      text-align: center;
+    }
+    .compass-holder {
+      position: relative;
+
+      .middle {
+        z-index: 100;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background-color: white;
+        transform: translate(-50%, -50%);
       }
-      
-      .today{
-        width: 100%;
-        align-self: center;
+    }
 
-        div h1{
-          font-size: 60px; 
+    .compass {
+      width: 80%;
+      aspect-ratio: 1;
+      height: auto;
+      border-radius: 50%;
+      border: white solid 5px;
+      display: flex;
+      justify-content: center;
+
+      .arrow {
+        background-color: var(--dependent-color);
+        align-self: center;
+        height: 50%;
+        width: 10px;
+        transform-origin: bottom;
+        transform: translate(0, -50%);
+
+        .dial {
+          background-color: var(--dependent-color);
+          width: 250%;
+          aspect-ratio: 1;
+          height: auto;
+          transform: translate(-30%, -90%);
+
+          clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+        .wind-dir-text {
+          text-align: center;
+          transform-origin: top;
+          font-weight: bold;
         }
       }
     }
-    .devided-holder{
-      width: 90%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .general {
+    flex-direction: column;
+    width: 90%;
+
+    .forecasts {
+      width: 100%;
+      align-self: center;
+    }
+
+    .today {
+      width: 100%;
+      align-self: center;
+      margin-right: 0px;
+      margin-bottom: 40px;
+
+      div h1 {
+        font-size: 40px;
+      }
     }
   }
+  .devided-holder {
+    width: 90%;
+  }
+  .sub-data {
+    width: 90%;
+    flex-direction: column;
+    height: 740px;
 
-  /* Scrollbar Styling for the .devided element */
+    div {
+      width: 100%;
+      height: 300px;
+    }
+    .wind {
+      flex-direction: column;
+      height: 400px;
+    }
+    .wind .compass {
+      height: 90%;
+      aspect-ratio: 1;
+      width: auto;
+    }
+  }
+}
+
+@media (min-width: 1630px) {
+  @media (min-width: 1630px) {
+    .devided-holder .devided .data-cols {
+      justify-content: center;
+    }
+
+    .devided-holder .devided .data-nums {
+      justify-content: center;
+    }
+  }
+}
+
+/* Scrollbar Styling for the .devided element */
 .devided::-webkit-scrollbar {
   height: 8px; /* Thickness of the horizontal scrollbar */
 }
