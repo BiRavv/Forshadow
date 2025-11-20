@@ -53,7 +53,6 @@ interface Weather {
   };
 }
 
-
 const App = () => {
   const [weather, setWeather] = useState<Weather | null>(null);
   const [loading, setLoading] = useState(true);
@@ -62,10 +61,10 @@ const App = () => {
 
   useEffect(() => {
     const apiKey = "e6c71dafd11e4866b1d70712251311";
-    const url = 
-      (location == null || location == "")? 
-      `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=7` : 
-      `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=auto:ip&days=7`;
+    const url =
+      location != null && location != ""
+        ? `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=7`
+        : `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=auto:ip&days=7`;
 
     const fetchWeather = async () => {
       try {
@@ -76,7 +75,7 @@ const App = () => {
         }
         const data = await response.json();
         setWeather(data);
-        console.log(data)
+        console.log(data);
       } catch (err) {
         if (err instanceof Error) setError(err.message);
         else setError("UNKNOWN ERROR");
@@ -90,18 +89,23 @@ const App = () => {
 
   return (
     <div>
-      <div className="today">
-        <Search key="search-bar" initialLocation={weather?.location} onSelect={(x)=>setLocation("id:"+x.id)} />
-
-        <p>{weather?.current.temp_c} °C</p>
-        <p>{weather?.location.name}</p>
+      <Search
+        key="search-bar"
+        initialLocation={weather?.location}
+        onSelect={(x) => setLocation("id:" + x.id)}
+      />
+      <div className="today panel">
+        <h1>{weather?.current.temp_c} °C</h1>
       </div>
-      
 
       <div className="forecasts">
-        {weather?.forecast.forecastday.map((day)=><ForecastCard key ={"forecast-day-"+day.date_epoch} forecastday={day} />)}
+        {weather?.forecast.forecastday.map((day) => (
+          <ForecastCard
+            key={"forecast-day-" + day.date_epoch}
+            forecastday={day}
+          />
+        ))}
       </div>
-      
     </div>
   );
 };

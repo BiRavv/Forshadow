@@ -69,19 +69,19 @@ const Search: React.FC<SearchProps> = ({ initialLocation, onSelect }) => {
     fetchWeather();
   }, [debouncedLookfor]);
 
-  
-
   const handleSelect = (opt: LocationOption) => {
-    setLookfor(""+opt.id);
+    (document.getElementById("search-bar-input") as HTMLInputElement).value =
+      "";
+    setLookfor("" + opt.id);
     setOptions(null);
-    document.getElementById("search-bar-input")?.innerText = ""
     if (onSelect) onSelect(opt);
   };
 
   return (
-    <div style={{ position: "relative", width: "250px" }}>
+    <div className="search-bar">
       <input
-        id = "search-bar-input"
+        id="search-bar-input"
+        className="panel"
         type="text"
         placeholder={initialLocation?.name}
         onChange={(e) => setLookfor(e.target.value)}
@@ -93,10 +93,7 @@ const Search: React.FC<SearchProps> = ({ initialLocation, onSelect }) => {
       {options && options.length > 0 && (
         <ul>
           {options.map((opt) => (
-            <li
-              key={opt.id}
-              onClick={() => handleSelect(opt)}
-            >
+            <li key={opt.id} onClick={() => handleSelect(opt)}>
               {opt.name}, {opt.region}, {opt.country}
             </li>
           ))}
