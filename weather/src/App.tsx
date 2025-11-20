@@ -1,4 +1,3 @@
-// App.tsx
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import Search from "./components/Search";
@@ -19,7 +18,7 @@ interface Weather {
     last_updated: string;
     temp_c: number;
     temp_f: number;
-    is_day: number;
+    is_day: number; //1 if day 0 if night
     condition: {
       text: string;
       icon: string;
@@ -36,6 +35,12 @@ interface Weather {
     forecastday: {
       date: string;
       date_epoch: number;
+      hour: {
+        temp_c : number;
+        chance_of_rain: number;
+        time_epoch: number;
+        time: Date;
+      }[];
       day: {
         maxtemp_c: number;
         maxtemp_f: number;
@@ -60,11 +65,27 @@ const App = () => {
   const [location, setLocation] = useState<string | null>("auto:ip");
 
   useEffect(() => {
+    if (weather) {
+      const isNight = weather.current.is_day === 0;
+
+      document.documentElement.style.setProperty(
+        "--background",
+        isNight ? "url(background-night.png)" : "url(background-day.png)"
+      );
+
+      document.documentElement.style.setProperty(
+        "--dependent-color",
+        isNight ? "#02467d" : "#FFF002"
+      );
+    }
+  }, [weather]);
+
+  useEffect(() => {
     const apiKey = "e6c71dafd11e4866b1d70712251311";
     const url =
       location != null && location != ""
-        ? `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=7`
-        : `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=auto:ip&days=7`;
+        ? `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=3`
+        : `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=auto:ip&days=3`;
 
     const fetchWeather = async () => {
       try {
@@ -94,17 +115,61 @@ const App = () => {
         initialLocation={weather?.location}
         onSelect={(x) => setLocation("id:" + x.id)}
       />
-      <div className="today panel">
-        <h1>{weather?.current.temp_c} °C</h1>
-      </div>
+      <div className="general">
+        <div className="today panel">
+          <div>
+            <img src={weather?.current.condition.icon} alt="" />
+            <h2>{weather?.current.condition.text} </h2>
+            <h2>{weather?.current.cloud}% cloudy</h2>
+          </div>
+          <div>
+            <h1>{weather?.current.temp_c}°c</h1>
+            <h2>Feels like {weather?.current.feelslike_c}°c</h2>
+          </div>
+        </div>
 
-      <div className="forecasts">
-        {weather?.forecast.forecastday.map((day) => (
-          <ForecastCard
-            key={"forecast-day-" + day.date_epoch}
-            forecastday={day}
-          />
-        ))}
+        <div className="forecasts">
+          {weather?.forecast.forecastday.map((day) => (
+            <ForecastCard
+              key={"forecast-day-" + day.date_epoch}
+              forecastday={day}
+            />
+          ))}
+        </div>
+      </div>
+      <div className="devided-holder">
+        <div className="devided panel">
+          <div className="data-cols">
+            {weather?.forecast.forecastday[0]
+            ?.hour.map(h=>
+             <div 
+                style={{
+                  height: `${(h.temp_c + 30) * 5}px`,
+                  backgroundColor: new Date(h.time.toString()).getHours() === new Date().getHours() ? "var(--dependent-color)" : "white"
+                }}
+                key={h.time_epoch} 
+                className="data-col"
+              >
+                <div>{h.temp_c}</div>
+              </div>)}
+          </div>
+          <div className="data-nums">
+            {weather?.forecast.forecastday[0]?.hour.map(h => {
+              const hour = new Date(h.time.toString()).getHours();
+              
+              const formattedHour = hour < 10 ? `0${hour}` : `${hour}`;
+
+              return (
+                <p 
+                  className="data-num" 
+                  key={"" + h.time_epoch + h.time}
+                >
+                  {formattedHour}
+                </p>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );

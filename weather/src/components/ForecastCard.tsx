@@ -45,9 +45,9 @@ const ForecastCard: React.FC<Props> = ({ forecastday }) => {
       </h2>
       <p>{getOrdinalSuffix(new Date(forecastday.date).getDate())}</p>
       <hr />
-      <h2>{forecastday.day.maxtemp_c}°</h2>
-      <p>{forecastday.day.avgtemp_c}°</p>
-      <h2>{forecastday.day.mintemp_c}°</h2>
+      <h2>{forecastday.day.maxtemp_c}°c</h2>
+      <p>{forecastday.day.avgtemp_c}°c</p>
+      <h2>{forecastday.day.mintemp_c}°c</h2>
     </div>
   );
 };

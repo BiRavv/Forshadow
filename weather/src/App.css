@@ -1,83 +1,280 @@
-* {
-  font-family: Arial, Helvetica, sans-serif;
-  box-sizing: border-box;
-  color: white;
-}
-
-.today {
-  justify-self: center;
-  width: 20%;
-  justify-items: center;
-  text-align: center;
-  margin: 20px;
-}
-
-.search-bar {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin: 20px;
-  min-width: 50px;
-  max-width: 100%;
-}
-
-#search-bar-input {
-  align-content: center;
-  text-align: center;
-  font-size: 50px;
-  font-weight: bolder;
-  color: rgb(221, 221, 221);
-  max-width: fit-content;
-}
-
-#search-bar-input:: {
-}
-
-#search-bar-input::placeholder {
-  color: white;
-}
-
-.panel {
-  background: rgba(0, 0, 0, 0.452);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
-
-  border-radius: 14px;
-  padding: 16px;
-
-  border: 0px;
-
-  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.301),
-    inset 0 0 30px rgba(46, 46, 46, 0.356), inset 0 0 8px rgba(20, 20, 20, 0.35);
-}
-
-body {
-  margin: 0;
-  width: 100vw;
-  min-height: 100vh;
-
-  background-image: url("background.png");
-  background-size: cover;
-  background-position: center;
-}
-
-.forecast-card {
-  width: 10%;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 10px;
-}
-
-.forecasts {
-  width: 100%;
-  justify-content: center;
-  justify-items: center;
-  display: flex;
-  flex-direction: row;
-  line-height: 0px;
-  hr {
-    width: 90%;
+  :root{
+    --background: url("background-day.png");
+    --dependent-color: #FFF002;
   }
+  
+  * {
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+    color: white;
+  }
+
+  html, body {
+    overflow: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    background-color: #001c33;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
+  }
+
+  body {
+    margin: 0;
+    width: 100vw;
+    min-height: 100vh;
+    
+    overflow-x: hidden;
+
+    background-image: var(--background);
+    background-size: cover;
+    background-position: center;
+  }
+
+  .panel {
+    background: rgba(0, 0, 0, 0.452);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+
+    border-radius: 14px;
+    padding: 16px;
+
+    border: 0px;
+
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.301),
+      inset 0 0 30px rgba(46, 46, 46, 0.356), inset 0 0 8px rgba(20, 20, 20, 0.35);
+  }
+
+  .clesius{
+    font-size: small;
+    vertical-align: middle;
+  }
+
+  .search-bar {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 0px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    min-width: 50px;
+    max-width: 90%;
+    justify-self: center;
+
+    ul{
+      list-style: none;
+      position: absolute;
+      z-index: 100;
+      margin: 0;
+      margin-top: 100px;
+      padding: 0;
+
+      li{
+        margin-top: 5px;
+        font-size: 25px;
+      }
+    }
+  }
+  #search-bar-input {
+    align-content: center;
+    text-align: center;
+    font-size: 50px;
+    font-weight: bolder;
+    color: rgb(221, 221, 221);
+    max-width: 800px;
+    width: 90vw;
+  }
+  #search-bar-input::placeholder {
+  color: white;
+  }
+
+
+  .general{
+
+    display: flex;
+    flex-direction: row;
+    width: 75%;
+    align-self: center;
+    justify-self: center;
+
+    .today {
+      justify-self: center;
+      width: 40%;
+      justify-items: center;
+      text-align: center;
+      margin: 10px;
+      margin-right: 0;
+
+      display: flex;
+      flex-direction: row;
+
+      padding-bottom: 40px;
+
+      div{
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        *{
+          margin: 0;
+        }
+        img{
+          width: 70%;
+          align-self: center;
+          margin-bottom: -10px;
+        }
+        h1{
+          margin: 20px;
+          font-size: 50px;
+        }
+        h2{
+          margin: 5px;
+        }
+      }
+    }
+
+    .forecasts {
+      width: 60%;
+      justify-content: center;
+      justify-items: center;
+      display: flex;
+      flex-direction: row;
+      line-height: 0px;
+
+      .forecast-card {
+        width: 30%;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 10px;
+
+        img{
+          width: 50%;
+          aspect-ratio: 1;
+        }
+      }
+      hr {
+        width: 90%;
+      }
+    }
+  }
+
+
+.devided-holder{
+  width: 75%;
+  padding: 10px;
+  padding-right: 15px;
+  height: fit-content;
+  align-self: center;
+  justify-self: center;
+
+  .devided{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    height: fit-content;
+
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+
+    .data-nums{
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      padding-left: 0;
+      margin-left: -5px;
+
+      .data-num{
+        width: 10px;
+        min-width: 10px;
+        flex-shrink: 0;
+        margin: 20px;
+        margin-top: 0;
+        text-align: center;
+        font-size: 20px;
+        margin-bottom: 0;
+      }
+    }
+    .data-cols{
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: flex-start;
+   
+      .data-col{
+        
+        width: 20px;
+        flex-shrink: 0;
+        background-color: white;
+        border-radius: 10px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        margin: 15px;
+        margin-bottom: 20px;
+        margin-top: 50px;
+
+        div{
+          transform: translate(-10px, -30px);
+          text-align: center;
+          width: 40px;
+        }
+      }
+    }
+  }
+}
+
+  @media (max-width:1000px) {
+    .general{
+      flex-direction: column;
+      width: 90%;
+
+      .forecasts{
+        width: 100%;
+        align-self: center;
+      }
+      
+      .today{
+        width: 100%;
+        align-self: center;
+
+        div h1{
+          font-size: 60px; 
+        }
+      }
+    }
+    .devided-holder{
+      width: 90%;
+    }
+  }
+
+  /* Scrollbar Styling for the .devided element */
+.devided::-webkit-scrollbar {
+  height: 8px; /* Thickness of the horizontal scrollbar */
+}
+
+/* Track (the area where the scrollbar moves) */
+.devided::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2); /* Dark, slightly transparent track */
+  border-radius: 10px;
+}
+
+/* Handle (the part you drag) */
+.devided::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4); /* Light, semi-transparent handle */
+  border-radius: 10px; /* Rounded corners for the handle */
+}
+
+/* Handle on hover for better visibility */
+.devided::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.6); /* Lighter on hover */
 }

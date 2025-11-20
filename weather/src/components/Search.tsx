@@ -87,14 +87,16 @@ const Search: React.FC<SearchProps> = ({ initialLocation, onSelect }) => {
         onChange={(e) => setLookfor(e.target.value)}
       />
 
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
+      
 
       {options && options.length > 0 && (
         <ul>
+          {loading && <li className="panel">Loading...</li>}
+          {error && <li className="panel">Error: {error}</li>}
+
           {options.map((opt) => (
-            <li key={opt.id} onClick={() => handleSelect(opt)}>
-              {opt.name}, {opt.region}, {opt.country}
+            <li className="panel" key={opt.id} onClick={() => handleSelect(opt)}>
+              {opt.name}, {opt.country}
             </li>
           ))}
         </ul>
