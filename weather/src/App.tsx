@@ -210,8 +210,22 @@ function updateDialPosition(angleInDegrees: number): void {
     });
   };
 
+  const setFavicon = (iconUrl: string) => {
+    let link = document.querySelector("link[rel='icon']") as HTMLLinkElement;
+    
+    if (!link) {
+      link = document.createElement("link") as HTMLLinkElement;
+    }
+
+    link.type = "image/x-icon";
+    link.rel = "icon";
+    link.href = iconUrl;
+    document.head.appendChild(link);
+  };
+
   useEffect(() => {
     handleResize()
+    if (weather != null) setFavicon(weather?.current.condition.icon)
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
