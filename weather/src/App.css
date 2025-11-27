@@ -340,6 +340,13 @@ body {
         height: fit-content;
         width: fit-content;
         margin-top: 80px;
+        text-wrap: nowrap;
+      }
+      .moon-phase{
+        transform: translate(-50%,-150%);
+        position: absolute;
+        text-align: center;
+        left: 50%;
       }
     }
   }

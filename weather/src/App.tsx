@@ -292,7 +292,7 @@ function updateDialPosition(angleInDegrees: number): void {
             <div className="sun-path">
               <div className="sun-dial"></div>
               <div className="time">{weather?.forecast.forecastday[0].astro.sunrise}</div>
-              <div className="time">{weather?.current.is_day == 0 ? weather?.forecast.forecastday[0].astro.moon_phase : ""}</div>
+              <div className="time moon-phase">{weather?.current.is_day == 0 ? weather?.forecast.forecastday[0].astro.moon_phase : ""}</div>
               <div className="time">{weather?.forecast.forecastday[0].astro.sunset}</div>
             </div>
 
