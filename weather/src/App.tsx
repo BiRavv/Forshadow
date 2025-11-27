@@ -3,7 +3,7 @@ import "./App.css";
 import Search from "./components/Search";
 import ForecastCard from "./components/ForecastCard";
 import Compass from "./components/Compass";
-import AUTH from "./components/Secret";
+import AUTH from "./components/Secret"; // Authentication key for https://www.weatherapi.com account
 
 export interface Weather {
   location: {
