@@ -134,8 +134,92 @@ const App = () => {
     }
   }
 
+const temps = weather?.forecast.forecastday[0].hour.map(h => h.temp_c) ?? [];
+const maxTemp: number = temps.length > 0 ? Math.max(...temps) : 0;
+const minTemp: number = temps.length > 0 ? Math.min(...temps) : 0;
+
+const difference_in_px = 200/(maxTemp-minTemp)
+
+
+function updateDialPosition(angleInDegrees: number): void {
+    const sunPath = document.querySelector<HTMLElement>('.sun-path');
+    const sunDial = document.querySelector<HTMLElement>('.sun-dial');
+
+    if (sunPath === null || sunDial === null) {
+      console.error("Could not find required elements '.sun-path' or '.sun-dial'.");
+    } else {
+      const a: number = sunPath.offsetWidth / 2; 
+      const b: number = sunPath.offsetHeight / 2;
+
+      const angleInRadians: number = angleInDegrees * (Math.PI / 180);
+      const x: number = a * Math.cos(angleInRadians);
+      const y: number = b * Math.sin(angleInRadians);
+
+      if (sunDial == null) return;
+
+      sunDial.style.left = (a + x) + 'px';
+      sunDial.style.top = (b - y) + 'px';
+  }
+}
+  
+  const handleResize = () => {
+    if (weather == null) return;
+
+    function parseTimeToday(timeStr : string) {
+        const today = new Date();
+        const [time, period] = timeStr.split(' ');
+        let [hours, minutes] = time.split(':').map(Number);
+
+        if (period === 'PM' && hours !== 12) hours += 12;
+        if (period === 'AM' && hours === 12) hours = 0;
+
+        today.setHours(hours, minutes, 0, 0);
+        return today;
+    }
+
+    let sunrise = parseTimeToday(weather?.forecast.forecastday[0].astro.sunrise);
+    let sunset = parseTimeToday(weather?.forecast.forecastday[0].astro.sunset);
+    let now = new Date(weather.location.localtime);
+
+    let totalDuration = sunset.getTime() - sunrise.getTime();
+    let elapsed = now.getTime() - sunrise.getTime();
+    let degree = (elapsed / totalDuration) * 180;
+
+    degree = 180 - degree
+    degree = Math.min(180, Math.max(0, degree))
+
+
+    updateDialPosition(degree);
+
+
+    const container = document.querySelector('.devided');
+    const hourElements = document.querySelectorAll('.data-col');
+
+    if (container == null || hourElements == null) return;
+
+    const currentTime = new Date(weather.location.localtime).getHours();
+    const hourWidth = 50; 
+    let scrollPosition = currentTime * hourWidth;
+    scrollPosition -= container.clientWidth/2
+    scrollPosition += 40
+    // DO NOT FUCKING ASK it works ok?
+
+    container.scrollTo({
+      left: scrollPosition,
+      behavior: 'smooth'
+    });
+  };
+
+  useEffect(() => {
+    handleResize()
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [weather]);
+
+  
   return (
-    <div>
+    <div id="app">
       <Search
         key="search-bar"
         initialLocation={weather?.location}
@@ -173,10 +257,10 @@ const App = () => {
             {weather?.forecast.forecastday[0]?.hour.map((h) => (
               <div
                 style={{
-                  height: `${(h.temp_c + 30) * 5}px`,
+                  height: `${50 + (h.temp_c - minTemp) * difference_in_px}px`,
                   backgroundColor:
                     new Date(h.time.toString()).getHours() ===
-                    new Date().getHours()
+                    new Date(weather?.location.localtime).getHours()
                       ? "var(--dependent-color)"
                       : "white",
                 }}
@@ -204,7 +288,15 @@ const App = () => {
       </div>
 
       <div className="sub-data">
-        <div className="panel astro">TODO</div>
+        <div className="panel astro">
+            <div className="sun-path">
+              <div className="sun-dial"></div>
+              <div className="time">{weather?.forecast.forecastday[0].astro.sunrise}</div>
+              <div className="time">{weather?.current.is_day == 0 ? weather?.forecast.forecastday[0].astro.moon_phase : ""}</div>
+              <div className="time">{weather?.forecast.forecastday[0].astro.sunset}</div>
+            </div>
+
+        </div>
         <div className="panel wind">
           <div className="compass-holder">
             <div className="middle"></div>
@@ -222,6 +314,9 @@ const App = () => {
           </div>
         </div>
       </div>
+      <p id = "owners-text">@2025 <br />This webpage was created by Biró Péter (aka BiRaw) <br /> 
+      Thanks for weatherapi.com providing the weather data!
+      </p>
     </div>
   );
 };

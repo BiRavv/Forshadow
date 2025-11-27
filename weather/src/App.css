@@ -62,7 +62,7 @@ body {
   flex-direction: column;
   margin: 0px;
   margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   min-width: 50px;
   max-width: 90%;
   justify-self: center;
@@ -142,6 +142,7 @@ body {
     width: 60%;
     justify-content: space-between;
     justify-items: center;
+    align-items: center;
     display: flex;
     flex-direction: row;
     line-height: 0px;
@@ -310,6 +311,38 @@ body {
       }
     }
   }
+  .astro{
+    overflow: hidden;
+    justify-items: center;
+    padding-top: 5%;
+    
+    .sun-path{
+      border: 0;
+      border-top: solid 7px white;
+      border-radius: 50%;
+      width: 90%;
+      height: 150%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .sun-dial {
+        width: 30px;
+        height: 30px;
+        background-color: var(--dependent-color);
+        border-radius: 50%;
+        position: absolute;
+        transform: translate(-50%, -50%); 
+      }
+      .time{
+        position: relative;
+        height: fit-content;
+        width: fit-content;
+        margin-top: 80px;
+      }
+    }
+  }
 }
 
 @media (max-width: 1000px) {
@@ -355,18 +388,22 @@ body {
       width: auto;
     }
   }
+  
+  .sub-data .astro .sun-path{
+    height: 100%;
+    transform: translate(0,20%)
+  }
 }
 
 @media (min-width: 1630px) {
-  @media (min-width: 1630px) {
-    .devided-holder .devided .data-cols {
+  .devided-holder .devided .data-cols {
       justify-content: center;
     }
 
-    .devided-holder .devided .data-nums {
-      justify-content: center;
-    }
+  .devided-holder .devided .data-nums {
+    justify-content: center;
   }
+  
 }
 
 /* Scrollbar Styling for the .devided element */
@@ -389,4 +426,11 @@ body {
 /* Handle on hover for better visibility */
 .devided::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.6); /* Lighter on hover */
+}
+
+#owners-text{
+    justify-self: center;
+    margin-top: 100px;
+    text-align: center;
+    font-size: smaller;
 }
