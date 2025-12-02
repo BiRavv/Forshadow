@@ -1,0 +1,60 @@
+.wind {
+    display: flex;
+    justify-content: space-around;
+
+    > div {
+      height: 95%;
+      align-content: center;
+      justify-items: center;
+      text-align: center;
+    }
+    .compass-holder {
+      position: relative;
+
+      .middle {
+        z-index: 100;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background-color: white;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    .compass {
+      width: 80%;
+      aspect-ratio: 1;
+      height: auto;
+      border-radius: 50%;
+      border: white solid 5px;
+      display: flex;
+      justify-content: center;
+
+      .arrow {
+        background-color: var(--dependent-color);
+        align-self: center;
+        height: 50%;
+        width: 10px;
+        transform-origin: bottom;
+        transform: translate(0, -50%);
+
+        .dial {
+          background-color: var(--dependent-color);
+          width: 250%;
+          aspect-ratio: 1;
+          height: auto;
+          transform: translate(-30%, -90%);
+
+          clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+        .wind-dir-text {
+          text-align: center;
+          transform-origin: top;
+          font-weight: bold;
+        }
+      }
+    }
+}

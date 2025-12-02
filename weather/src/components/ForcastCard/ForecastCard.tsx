@@ -1,4 +1,5 @@
-import App from "../App";
+import App from "../../App";
+import "./ForcastCard.css"
 
 type Props = {
   forecastday: {

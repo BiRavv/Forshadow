@@ -56,87 +56,12 @@ body {
   vertical-align: middle;
 }
 
-.search-bar {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin: 0px;
-  margin-top: 20px;
-  margin-bottom: 40px;
-  min-width: 50px;
-  max-width: 90%;
-  justify-self: center;
-
-  ul {
-    list-style: none;
-    position: absolute;
-    z-index: 100;
-    margin: 0;
-    margin-top: 100px;
-    padding: 0;
-
-    li {
-      margin-top: 5px;
-      font-size: 25px;
-      border: white solid 2px;
-    }
-  }
-}
-#search-bar-input {
-  align-content: center;
-  text-align: center;
-  font-size: 50px;
-  font-weight: bolder;
-  color: rgb(221, 221, 221);
-  max-width: 800px;
-  width: 90vw;
-}
-#search-bar-input::placeholder {
-  color: white;
-}
-
 .general {
   display: flex;
   flex-direction: row;
   width: 75%;
   align-self: center;
   justify-self: center;
-
-  .today {
-    justify-self: center;
-    width: 40%;
-    justify-items: center;
-    text-align: center;
-
-    display: flex;
-    flex-direction: row;
-
-    padding-bottom: 40px;
-    margin-right: 40px;
-
-    div {
-      width: 50%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-
-      * {
-        margin: 0;
-      }
-      img {
-        width: 70%;
-        align-self: center;
-        margin-bottom: -10px;
-      }
-      h1 {
-        margin: 20px;
-        font-size: 50px;
-      }
-      h2 {
-        margin: 5px;
-      }
-    }
-  }
 
   .forecasts {
     width: 60%;
@@ -146,91 +71,9 @@ body {
     display: flex;
     flex-direction: row;
     line-height: 0px;
-
-    .forecast-card {
-      width: 30%;
-      height: fit-content;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      img {
-        width: 50%;
-        aspect-ratio: 1;
-      }
-    }
-    hr {
-      width: 90%;
-    }
   }
 }
 
-.devided-holder {
-  width: 75%;
-  margin-top: 40px;
-  height: fit-content;
-  align-self: center;
-  justify-self: center;
-
-  .devided {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-
-    overflow-x: auto;
-    overflow-y: hidden;
-
-    height: fit-content;
-
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-
-    .data-nums {
-      display: flex;
-      flex-direction: row;
-      justify-content: start;
-      align-items: center;
-      padding-left: 0;
-      margin-left: -5px;
-
-      .data-num {
-        width: 10px;
-        min-width: 10px;
-        flex-shrink: 0;
-        margin: 20px;
-        margin-top: 0;
-        text-align: center;
-        font-size: 20px;
-        margin-bottom: 0;
-      }
-    }
-    .data-cols {
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      align-items: flex-end;
-      justify-content: start;
-
-      .data-col {
-        width: 20px;
-        flex-shrink: 0;
-        background-color: white;
-        border-radius: 10px;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-        margin: 15px;
-        margin-bottom: 20px;
-        margin-top: 50px;
-
-        div {
-          transform: translate(-10px, -30px);
-          text-align: center;
-          width: 40px;
-        }
-      }
-    }
-  }
-}
 
 .sub-data {
   width: 75%;
@@ -250,105 +93,6 @@ body {
   div {
     width: 48%;
     height: 300px;
-  }
-  .wind {
-    display: flex;
-    justify-content: space-around;
-
-    > div {
-      height: 95%;
-      align-content: center;
-      justify-items: center;
-      text-align: center;
-    }
-    .compass-holder {
-      position: relative;
-
-      .middle {
-        z-index: 100;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 15px;
-        height: 15px;
-        border-radius: 50%;
-        background-color: white;
-        transform: translate(-50%, -50%);
-      }
-    }
-
-    .compass {
-      width: 80%;
-      aspect-ratio: 1;
-      height: auto;
-      border-radius: 50%;
-      border: white solid 5px;
-      display: flex;
-      justify-content: center;
-
-      .arrow {
-        background-color: var(--dependent-color);
-        align-self: center;
-        height: 50%;
-        width: 10px;
-        transform-origin: bottom;
-        transform: translate(0, -50%);
-
-        .dial {
-          background-color: var(--dependent-color);
-          width: 250%;
-          aspect-ratio: 1;
-          height: auto;
-          transform: translate(-30%, -90%);
-
-          clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-        }
-        .wind-dir-text {
-          text-align: center;
-          transform-origin: top;
-          font-weight: bold;
-        }
-      }
-    }
-  }
-  .astro{
-    overflow: hidden;
-    justify-items: center;
-    padding-top: 5%;
-    
-    .sun-path{
-      border: 0;
-      border-top: solid 7px white;
-      border-radius: 50%;
-      width: 90%;
-      height: 150%;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      .sun-dial {
-        width: 30px;
-        height: 30px;
-        background-color: var(--dependent-color);
-        border-radius: 50%;
-        position: absolute;
-        transform: translate(-50%, -50%); 
-      }
-      .time{
-        position: relative;
-        height: fit-content;
-        width: fit-content;
-        margin-top: 80px;
-        text-wrap: nowrap;
-      }
-      .moon-phase{
-        transform: translate(-50%,-150%);
-        position: absolute;
-        text-align: center;
-        left: 50%;
-      }
-    }
   }
 }
 
@@ -372,9 +116,6 @@ body {
         font-size: 40px;
       }
     }
-  }
-  .devided-holder {
-    width: 90%;
   }
   .sub-data {
     width: 90%;
@@ -400,39 +141,6 @@ body {
     height: 100%;
     transform: translate(0,20%)
   }
-}
-
-@media (min-width: 1630px) {
-  .devided-holder .devided .data-cols {
-      justify-content: center;
-    }
-
-  .devided-holder .devided .data-nums {
-    justify-content: center;
-  }
-  
-}
-
-/* Scrollbar Styling for the .devided element */
-.devided::-webkit-scrollbar {
-  height: 8px; /* Thickness of the horizontal scrollbar */
-}
-
-/* Track (the area where the scrollbar moves) */
-.devided::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.2); /* Dark, slightly transparent track */
-  border-radius: 10px;
-}
-
-/* Handle (the part you drag) */
-.devided::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.4); /* Light, semi-transparent handle */
-  border-radius: 10px; /* Rounded corners for the handle */
-}
-
-/* Handle on hover for better visibility */
-.devided::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.6); /* Lighter on hover */
 }
 
 #owners-text{

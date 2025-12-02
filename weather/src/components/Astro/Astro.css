@@ -1,0 +1,39 @@
+.sub-data .astro{
+    overflow: hidden;
+    justify-items: center;
+    padding-top: 5%;
+    
+    .sun-path{
+      border: 0;
+      border-top: solid 7px white;
+      border-radius: 50%;
+      width: 90%;
+      height: 150%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .sun-dial {
+        width: 30px;
+        height: 30px;
+        background-color: var(--dependent-color);
+        border-radius: 50%;
+        position: absolute;
+        transform: translate(-50%, -50%); 
+      }
+      .time{
+        position: relative;
+        height: fit-content;
+        width: fit-content;
+        margin-top: 80px;
+        text-wrap: nowrap;
+      }
+      .moon-phase{
+        transform: translate(-50%,-150%);
+        position: absolute;
+        text-align: center;
+        left: 50%;
+      }
+    }
+  }

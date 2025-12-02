@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import AUTH from "./Secret";
+import AUTH from "../Secret";
+import "./Search.css"
 
 interface LocationOption {
   id: number;
