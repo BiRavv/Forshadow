@@ -1,0 +1,49 @@
+#impostor {
+    margin: 0;
+    padding: 0;
+    top: 0;
+
+    min-width: 100vw;
+    min-height: 100vh;
+    background-color: #3C70DD;
+    z-index: 1000;
+
+    display: flex;
+    position: fixed;
+
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 10vw;
+
+
+    .loading {
+        background-image: url("loading.svg");
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+
+        height: 30vh;
+        aspect-ratio: 1;
+        width: auto;
+        z-index: 1001;
+
+        animation-name: spin;
+        animation-duration: 5000ms;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+
+    }
+
+    to {
+        transform: rotate(360deg);
+        
+    }
+}

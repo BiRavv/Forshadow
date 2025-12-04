@@ -8,6 +8,7 @@ import type Weather from "./Weather";
 import Astro from "./components/Astro/Astro";
 import Devided from "./components/Devided/Devided";
 import Today from "./components/Today/Today";
+import Impostor from "./components/Impostor/Impostor";
 
 const App = () => {
   const [weather, setWeather] = useState<Weather | null>(null);
@@ -40,19 +41,17 @@ const App = () => {
 
     const fetchWeather = async () => {
       try {
-        setLoading(true);
         const response = await fetch(url);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
         setWeather(data);
-        console.log(data);
       } catch (err) {
         if (err instanceof Error) setError(err.message);
         else setError("UNKNOWN ERROR");
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
     };
 
@@ -63,7 +62,7 @@ const App = () => {
       if (weather != null) setFavicon(weather?.current.condition.icon)
     }, [weather]);
 
-  const setFavicon = (iconUrl: string) => {
+    const setFavicon = (iconUrl: string) => {
     let link = document.querySelector("link[rel='icon']") as HTMLLinkElement;
     
     if (!link) {
@@ -76,10 +75,11 @@ const App = () => {
     document.head.appendChild(link);
   };
 
-  
 
   return (
     <div id="app">
+      <Impostor value ={loading} ></Impostor>
+
       <Search
         key="search-bar"
         initialLocation={weather?.location}
