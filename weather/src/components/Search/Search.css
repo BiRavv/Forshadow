@@ -22,6 +22,8 @@
       margin-top: 5px;
       font-size: 25px;
       border: white solid 2px;
+      text-align: center;
+      max-width: 95vw;
     }
   }
 }

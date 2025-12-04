@@ -136,11 +136,6 @@ body {
       width: auto;
     }
   }
-  
-  .sub-data .astro .sun-path{
-    height: 100%;
-    transform: translate(0,20%)
-  }
 }
 
 #owners-text{
