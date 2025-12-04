@@ -10,7 +10,14 @@ interface DevidedProps {
 const Devided: React.FC<DevidedProps> = ({ weather })=>
 {
 
-    useEffect(()=>{
+    useEffect(() => {
+        handleResize()
+    
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [weather]);
+
+    const handleResize = ()=>{
         if (weather == null) return
         
         const container = document.querySelector('.devided');
@@ -29,7 +36,7 @@ const Devided: React.FC<DevidedProps> = ({ weather })=>
           left: scrollPosition,
           behavior: 'smooth'
         });
-    })
+    }
 
     const temps = weather?.forecast.forecastday[0].hour.map(h => h.temp_c) ?? [];
     const maxTemp: number = temps.length > 0 ? Math.max(...temps) : 0;
