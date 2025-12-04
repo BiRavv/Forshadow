@@ -76,6 +76,7 @@ const App = () => {
     document.head.appendChild(link);
   };
 
+  
 
   return (
     <div id="app">
@@ -104,7 +105,8 @@ const App = () => {
       </div>
 
       <p id = "owners-text">@2025 <br />This webpage was created by Biró Péter (aka BiRaw) <br /> 
-      Thanks for weatherapi.com providing the weather data!
+      Thanks for weatherapi.com providing the weather data! <br />
+      Trust us with your weather!
       </p>
     </div>
   );
