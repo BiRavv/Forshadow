@@ -38,7 +38,7 @@
     }
   }
 
-  @media (max-width: 1000px) 
+  @media (max-width: 800px) 
   {
     .sub-data .astro .sun-path{
       height: 100%;
