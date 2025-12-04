@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react"
 import "./Impostor.css"
 
-interface ImpostorProps{
+interface ImpostorProps {
     value: boolean
 }
 
-const Impostor: React.FC<ImpostorProps> = (is_loading)=>{
+const Impostor: React.FC<ImpostorProps> = (is_loading) => {
 
-    return(
+    return (
         <div id="impostor" style={{
             visibility: is_loading.value ? "visible" : "collapse"
         }}>
-            <div className="loading"/>
+            <div className="loading" />
         </div>
     )
 }

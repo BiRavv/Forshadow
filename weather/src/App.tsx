@@ -47,11 +47,10 @@ const App = () => {
         }
         const data = await response.json();
         setWeather(data);
+        setLoading(false)
       } catch (err) {
         if (err instanceof Error) setError(err.message);
         else setError("UNKNOWN ERROR");
-      } finally {
-        setLoading(false)
       }
     };
 
@@ -59,12 +58,12 @@ const App = () => {
   }, [location]);
 
   useEffect(() => {
-      if (weather != null) setFavicon(weather?.current.condition.icon)
-    }, [weather]);
+    if (weather != null) setFavicon(weather?.current.condition.icon)
+  }, [weather]);
 
-    const setFavicon = (iconUrl: string) => {
+  const setFavicon = (iconUrl: string) => {
     let link = document.querySelector("link[rel='icon']") as HTMLLinkElement;
-    
+
     if (!link) {
       link = document.createElement("link") as HTMLLinkElement;
     }
@@ -78,7 +77,7 @@ const App = () => {
 
   return (
     <div id="app">
-      <Impostor value ={loading} ></Impostor>
+      <Impostor value={loading} ></Impostor>
 
       <Search
         key="search-bar"
@@ -104,9 +103,9 @@ const App = () => {
         <Wind weather={weather}></Wind>
       </div>
 
-      <p id = "owners-text">@2025 <br />This webpage was created by Biró Péter (aka BiRaw) <br /> 
-      Thanks for weatherapi.com providing the weather data! <br />
-      Trust us with your weather!
+      <p id="owners-text">@2025 <br />This webpage was created by Biró Péter (aka BiRaw) <br />
+        Thanks for weatherapi.com providing the weather data! <br />
+        Trust us with your weather!
       </p>
     </div>
   );
