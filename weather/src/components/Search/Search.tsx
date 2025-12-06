@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import AUTH from "../Secret";
-import "./Search.css"
+import "./Search.css";
 
 interface LocationOption {
   id: number;
@@ -47,8 +46,7 @@ const Search: React.FC<SearchProps> = ({ initialLocation, onSelect }) => {
   useEffect(() => {
     if (debouncedLookfor == null || debouncedLookfor.length === 0) return;
 
-    const apiKey = AUTH;
-    const url = `https://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${debouncedLookfor}`;
+    const url = `/api/search?q=${debouncedLookfor}`;
 
     const fetchWeather = async () => {
       try {

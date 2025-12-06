@@ -1,18 +1,19 @@
-import { useEffect, useState } from "react"
-import "./Impostor.css"
+import "./Impostor.css";
 
 interface ImpostorProps {
-    value: boolean
+  value: boolean;
 }
 
 const Impostor: React.FC<ImpostorProps> = (is_loading) => {
-
-    return (
-        <div id="impostor" style={{
-            visibility: is_loading.value ? "visible" : "collapse"
-        }}>
-            <div className="loading" />
-        </div>
-    )
-}
-export default Impostor
+  return (
+    <div
+      id="impostor"
+      style={{
+        visibility: is_loading.value ? "visible" : "collapse",
+      }}
+    >
+      <div className="loading" />
+    </div>
+  );
+};
+export default Impostor;

@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Search from "./components/Search/Search";
 import ForecastCard from "./components/ForcastCard/ForecastCard";
 import Wind from "./components/Wind/Wind";
-import AUTH from "./components/Secret"; // Authentication key for https://www.weatherapi.com account
 import type Weather from "./Weather";
 import Astro from "./components/Astro/Astro";
 import Devided from "./components/Devided/Devided";
@@ -13,7 +12,6 @@ import Impostor from "./components/Impostor/Impostor";
 const App = () => {
   const [weather, setWeather] = useState<Weather | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [location, setLocation] = useState<string | null>("auto:ip");
 
   useEffect(() => {
@@ -33,11 +31,10 @@ const App = () => {
   }, [weather]);
 
   useEffect(() => {
-    const apiKey = AUTH;
     const url =
-      location != null && location != ""
-        ? `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=3`
-        : `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=auto:ip&days=3`;
+      location && location !== ""
+        ? `/api/weather?q=${location}`
+        : `/api/weather`;
 
     const fetchWeather = async () => {
       try {
@@ -47,18 +44,15 @@ const App = () => {
         }
         const data = await response.json();
         setWeather(data);
-        setLoading(false)
-      } catch (err) {
-        if (err instanceof Error) setError(err.message);
-        else setError("UNKNOWN ERROR");
-      }
+        setLoading(false);
+      } catch (err) {}
     };
 
     fetchWeather();
   }, [location]);
 
   useEffect(() => {
-    if (weather != null) setFavicon(weather?.current.condition.icon)
+    if (weather != null) setFavicon(weather?.current.condition.icon);
   }, [weather]);
 
   const setFavicon = (iconUrl: string) => {
@@ -74,10 +68,9 @@ const App = () => {
     document.head.appendChild(link);
   };
 
-
   return (
     <div id="app">
-      <Impostor value={loading} ></Impostor>
+      <Impostor value={loading}></Impostor>
 
       <Search
         key="search-bar"
@@ -103,7 +96,9 @@ const App = () => {
         <Wind weather={weather}></Wind>
       </div>
 
-      <p id="owners-text">@2025 <br />This webpage was created by Biró Péter (aka BiRaw) <br />
+      <p id="owners-text">
+        @2025 <br />
+        This webpage was created by Biró Péter (aka BiRaw) <br />
         Thanks for weatherapi.com providing the weather data! <br />
         Trust us with your weather!
       </p>
