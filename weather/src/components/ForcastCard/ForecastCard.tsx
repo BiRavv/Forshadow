@@ -6,15 +6,11 @@ type Props = {
     date_epoch: number;
     day: {
       maxtemp_c: number;
-      maxtemp_f: number;
       mintemp_c: number;
-      mintemp_f: number;
       avgtemp_c: number;
-      avgtemp_f: number;
       condition: {
         text: string;
         icon: string;
-        code: number;
       };
     };
   };
